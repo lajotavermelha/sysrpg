@@ -12,6 +12,10 @@ def indexPage():
 def registerPage():
     return render_template('register.html')
 
+@app.route('/criarpersonagem')
+def criarpersonagemPage():
+    return render_template('criarpersonagem.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -33,4 +37,38 @@ def register():
     novo_user = User(username=username, password_hash=password_hash, email=email)
     db.session.add(novo_user)
     db.session.commit()
+    return redirect(url_for('login')), 201
     return jsonify({'message': 'usuario criado'}), 201
+
+@app.route('/api/criarpersonagem', methods=['POST', 'GET'])
+def criarpersonagem():
+    if request.method == 'POST':
+        name = request.form['name']
+        race = request.form['race']
+        classe = request.form['classe']
+        strength = request.form['força']
+        dexterity = request.form['destreza']
+        constitution = request.form['constituição']
+        intelligence = request.form['inteligencia']
+        wisdom = request.form['sabedoria']
+        charisma = request.form['carisma']
+        background = request.form['background']
+        inventory = request.form['inventario']
+        abilities = request.form['habilidade']
+        novo_personagem = Character(name=name,
+                                    race=race,
+                                    classe=classe,
+                                    strength=strength,
+                                    dexterity=dexterity,
+                                    constitution=constitution,
+                                    intelligence=intelligence,
+                                    wisdom=wisdom,
+                                    charisma=charisma,
+                                    background=background,
+                                    inventory=inventory,
+                                    abilities=abilities
+                                    )
+        db.session.add(novo_personagem)
+        db.session.commit()
+        return jsonify({'message': 'personagem criado'}), 201
+        
