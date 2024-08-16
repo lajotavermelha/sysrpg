@@ -35,6 +35,25 @@ class Character(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
+class NPC(db.Model):
+    __tablename__ = 'npcs'
+    npc_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    race = db.Column(db.String(50), nullable=False)
+    classe = db.Column(db.String(50), nullable=False)
+    level = db.Column(db.Integer, default=1)
+    strength = db.Column(db.Integer, default=10)
+    dexterity = db.Column(db.Integer, default=10)
+    constitution = db.Column(db.Integer, default=10)
+    intelligence = db.Column(db.Integer, default=10)
+    wisdom = db.Column(db.Integer, default=10)
+    charisma = db.Column(db.Integer, default=10)
+    background = db.Column(db.Text)
+    inventory = db.Column(db.JSON, default=[])
+    abilities = db.Column(db.JSON, default=[])
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
 class Campaing(db.Model):
     __tablename__ = 'campaigns'
     campaign_id = db.Column(db.Integer, primary_key=True)

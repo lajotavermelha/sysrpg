@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Item</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Criar Item</h1>
+        <form action="/api/item" method="post">
+            <div>
+                <label for="name">Nome:</label>
+                <input type="text" name="name" id="name-Item">
+            </div>
+            <div>
+                <label for="descrição">Descrição:</label>
+                <input type="text" name="descrição" id="descrição-Item">
+            </div>
+            <div>
+                <label for="type">Tipo de Item:</label>
+                <input type="text" name="item_type" id="item_type">
+            </div>
+            <div>
+                <label for="atributos">Atributos:</label>
+                <input type="text" name="atributos" id="força-personagem">
+            </div>
+            <div>
+                <button type="submit">Criar</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

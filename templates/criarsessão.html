@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Sessão</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Criar Sessão</h1>
+        <div>
+            <h2>NPC's</h2>
+            <div id="npcs"></div>
+            <a href="/criarsessão/npc"><button>Adicionar NPC</button></a>
+        </div>
+        <div>
+            <h2>Items</h2>
+            <div id="items"></div>
+            <a href="/criarsessão/Item"><button>Adicionar Item</button></a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,7 +1,7 @@
 /* Reset básico */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap');
 
-body, h1, h2, h3, h4, h5, h6, p, form, input, button, div, main, a {
+body, h1, h2, h3, h4, h5, h6, p, form, input, button, div, main {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -83,8 +83,18 @@ button:hover {
     color: #1c1c1c;
 }
 
+.button-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
 /* Links */
 a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #d4af37;
     text-decoration: none;
     display: inline-block;
