@@ -20,7 +20,7 @@ def registerPage():
 def criarpersonagemPage():
     return render_template('criarpersonagem.html')
 
-@app.route('/criarsessão')
+@app.route('/criarsessao')
 def criarsessãoPage():
     return render_template('criarsessão.html')
 @app.route('/criarsessão/npc')
@@ -85,8 +85,8 @@ def create_character():
     db.session.commit()
     return jsonify({'message': 'Character created'}), 201
 
-@app.route('/api/criarpersonagem', methods=['POST', 'GET'])
-def criarpersonagem():
+@app.route('/api/npc', methods=['POST', 'GET'])
+def criarnpc():
     if request.method == 'POST':
         name = request.form['name']
         race = request.form['race']
@@ -100,7 +100,7 @@ def criarpersonagem():
         background = request.form['background']
         inventory = request.form['inventario']
         abilities = request.form['habilidade']
-        novo_personagem = Character(name=name,
+        novo_personagem = NPC(name=name,
                                     race=race,
                                     classe=classe,
                                     strength=strength,
@@ -115,21 +115,53 @@ def criarpersonagem():
                                     )
         db.session.add(novo_personagem)
         db.session.commit()
-        return jsonify({'message': 'personagem criado'}), 201
-        
-#TODO conserta esta porra
+        return redirect(url_for('criarsessãoPage'))
+    elif request.method == 'GET':
+        npcs = NPC.query.all()
+        return jsonify([{'npc_id': n.npc_id,
+                         'name': n.name,
+                         'race': n.race,
+                         'classe': n.classe,
+                         'strength': n.strength,
+                         'dexterity': n.dexterity,
+                         'constitution': n.constitution,
+                         'intelligence': n.intelligence,
+                         'wisdom': n.wisdom,
+                         'charisma': n.charisma,
+                         'background': n.background,
+                         'inventory': n.inventory,
+                         'abilities': n.abilities
+                         } for n in npcs])
+
+@app.route('/api/npc/<int:npc_id>', methods=['DELETE'])
+def delete_npc(npc_id):
+    npc = NPC.query.get(npc_id)
+    print(npc_id)
+    if request.method == 'DELETE':
+        db.session.delete(npc)
+        db.session.commit()
+        return jsonify({'message': 'NPC deleted'})
+
 @app.route('/api/item', methods=['POST', 'GET'])
 def item():
     if request.method == 'POST':
         name = request.form.get('name')
         descrição = request.form.get('descrição')
-        item_type = request.form.get('item-type')
+        item_type = request.form.get('item_type')
         attributes = request.form.get('atributos')
-        print(item_type)
         novo_item = Item(name=name, description=descrição, item_type=item_type, attributes=attributes)
         db.session.add(novo_item)
         db.session.commit()
-        return jsonify({'message': 'item criado'}), 201
+        return redirect(url_for('criarsessãoPage'))
     elif request.method =='GET':
         items = Item.query.all()
-        return jsonify([{'name': i.name, 'description': i.description, 'item_type': i.item_type, 'attributes': i.attributes} for i in items])
+        return jsonify([{'item_id': i.item_id, 'name': i.name, 'description': i.description, 'item_type': i.item_type, 'attributes': i.attributes} for i in items])
+
+@app.route('/api/item/<int:item_id>', methods=['DELETE'])
+def delete_item(item_id):
+    item = Item.query.get(item_id)
+    print(item_id)
+    if request.method == 'DELETE':
+        db.session.delete(item)
+        db.session.commit()
+        return jsonify({'message': 'NPC deleted'})
